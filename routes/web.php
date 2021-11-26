@@ -15,15 +15,14 @@ define('PAGINATION_COUNT' , 2);
 |
 */
 
+// رابط الدخول الي شاشة تسجيل الدخول
 Route::get('/', function () {
     return view('auth.login');
 });
 
+// رابط الدخول الي شاشة تسجيل مستخدم جديد
 Auth::routes(['register' => false]);
 // Auth::routes();
-
-
-
 
 Route::group(['middleware' => 'auth'] , function(){
 
@@ -34,5 +33,7 @@ Route::group(['middleware' => 'auth'] , function(){
     Route::resource('bus', App\Http\Controllers\BusController::class)->except(['show']);
     Route::resource('travelsHagz', App\Http\Controllers\TravelsHagzController::class)->except(['show']);
     Route::get('dropTickets/{passeng}/{travel}', [App\Http\Controllers\DropTicketsController::class , 'index'])->name('dropTickets');
+    Route::get('change', [App\Http\Controllers\ChangeController::class , 'index'])->name('change');
+    Route::post('update', [App\Http\Controllers\ChangeController::class , 'update'])->name('update');
     
 });

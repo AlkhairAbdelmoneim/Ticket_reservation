@@ -7,10 +7,12 @@ use App\Models\Passenger;
 use App\Models\Travels;
 use Illuminate\Http\Request;
 
+// كود إضافة وتعديل وحذف بيانات الرحلات المحجوزه
 class TravelsHagzController extends Controller
 {
     public function index()
     {
+        // داله عرض كل البصات
         $bus = Bus::all();
         return view ('dashboard.bus.index' ,compact('bus'));
     }
@@ -50,13 +52,6 @@ class TravelsHagzController extends Controller
 
 
         $travel_price = $travels['price'] * $request_data['chair_count']; // count of price
-
-        $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'chair_count' => 'required|numeric',
-            'travel_from_to' => 'required',
-        ]);
 
         $passenger = Passenger::create([
         'name' => $request_data['name'],

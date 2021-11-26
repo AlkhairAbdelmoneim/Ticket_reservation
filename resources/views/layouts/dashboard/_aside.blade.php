@@ -25,7 +25,7 @@
            
              <li><a href="{{ route('home') }}"><i class="fa fa-th"></i><span>حجز رحله</span></a></li>
             
-          {{--  <li><a href="{{ route('settings.index') }}"><i class="fa fa-cogs"></i><span>@lang('site.site_setting')</span></a></li> --}}
+          <li><a href="{{ route('change') }}"><i class="fa fa-setting"></i><span>إعدادات النظام</span></a></li>
 
         </ul>
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Travels;
 use App\Models\Passenger;
 
+// كود إلغاء التذكره
 class DropTicketsController extends Controller
 {
     public function index($passeng ,$travel)

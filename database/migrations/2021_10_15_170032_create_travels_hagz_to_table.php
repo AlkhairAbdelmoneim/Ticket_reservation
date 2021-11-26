@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTravelsHagzToTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('travels_hagz_to', function (Blueprint $table) {
@@ -18,12 +14,7 @@ class CreateTravelsHagzToTable extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+ 
     public function down()
     {
         Schema::dropIfExists('travels_hagz_to');

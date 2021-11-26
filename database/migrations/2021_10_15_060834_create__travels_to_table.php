@@ -16,12 +16,10 @@ class CreateTravelsToTable extends Migration
         Schema::create('travels', function (Blueprint $table) {
             $table->id();
             $table->string('travel_name');
-            $table->integer('travel_no');
             $table->string('travel_from');
             $table->string('travel_to');
             $table->string('travel_date');
             $table->time('travel_go');
-            $table->time('travel_arive');
             $table->time('travel_arive');
             $table->bigInteger('model_bus');
             $table->string('tickets_no');
@@ -30,11 +28,7 @@ class CreateTravelsToTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('_travels_to');

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Bus;
 use Illuminate\Http\Request;
 
+// كود إضافة وتعديل وحذف بصات الرحلات
 class BusController extends Controller
 {
+    // داله عرض كل البصات السفريه
     public function index()
     {
         $bus = Bus::paginate(4);
@@ -14,11 +16,14 @@ class BusController extends Controller
     }
 
  
+    // دال إضافة بصات سفريه
     public function create()
     {
         return view ('dashboard.bus.create');
     }
 
+    // داله حفظ بيانات البص المدخله بواسطه شاشة إضافه بصات
+    // يتم حفظ البانات المدخله داخل الداتا بيز في جدول البصات
     public function store(Request $request)
     {
         $request->validate([
@@ -37,12 +42,12 @@ class BusController extends Controller
     }
 
 
-    public function show(Bus $bus)
-    {
-        //
-    }
+    // public function show(Bus $bus)
+    // {
+    //     //
+    // }
 
-
+    // دالة عرض شاشة تعديل بيانات البص المختاره من شاشة عرض كل البصات
     public function edit( $id)
     {
         $bus = Bus::find($id);
@@ -57,6 +62,8 @@ class BusController extends Controller
     }
 
 
+    // دالة حفظ البانات التي تم التعديل عليها من شاشة تعديل البيانات 
+    //وحفظها في جدول البصات داخل الداتا بيز
     public function update(Request $request,  $id)
     {
         $bus = Bus::find($id);
@@ -77,6 +84,7 @@ class BusController extends Controller
     }
 
 
+    // دالة حذف بيانات البص المختاره من شاشة عرض كل البصات
     public function destroy( $id)
     {
         Bus::find($id)->delete();

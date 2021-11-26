@@ -6,9 +6,11 @@ use App\Models\Travels;
 use App\Models\Bus;
 use Illuminate\Http\Request;
 
+// كود إضافة وتعديل وحذف بيانات المسافر
 class TravelsController extends Controller
 {
 
+    // داله عرض كل الرحلات
     public function index(Request $request)
     {
 
@@ -24,13 +26,15 @@ class TravelsController extends Controller
     }
 
 
+    // دال إضافة رحله جديد 
     public function create()
     {
         $bus = Bus::all();
         return view ('dashboard.travels.create',compact('bus'));
     }
 
-
+    // داله حفظ بيانات البص المدخله بواسطه شاشة إضافه رحله
+    // يتم حفظ البيانات المدخله داخل الداتا بيز في جدول الرحلات
     public function store(Request $request)
     {
         // return $request;
@@ -61,6 +65,7 @@ class TravelsController extends Controller
     }
 
   
+    // دالة عرض شاشة تعديل بيانات الرحلات المختاره من شاشة عرض كل الرحلات
     public function edit( $id)
     {
         $bus = Bus::all();
@@ -75,6 +80,8 @@ class TravelsController extends Controller
         return view('dashboard.travels.edit' ,compact('travel','bus'));
     }
 
+    // دالة حفظ البانات التي تم التعديل عليها من شاشة تعديل البيانات 
+    //وحفظها في جدول الرحلات داخل الداتا بيز
     public function update(Request $request,  $id)
     {
         $travel = Travels::find($id);
@@ -100,6 +107,7 @@ class TravelsController extends Controller
     }
 
 
+    // دالة حذف بيانات الرحلات المختاره من شاشة عرض كل الرحلات
     public function destroy( $id)
     {
         Travels::find($id)->delete();

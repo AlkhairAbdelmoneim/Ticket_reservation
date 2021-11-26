@@ -5,22 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Passenger;
 use Illuminate\Http\Request;
 
+// كود إضافة وتعديل وحذف بيانات المسافر
 class PassengerController extends Controller
 {
 
+    // داله عرض كل المسافرين
     public function index()
     {
         $passenger = Passenger::with('modelBus')->paginate(4);
         return view ('dashboard.passenger.index' ,compact('passenger'));
     }
 
-
+    // دال إضافة مسافر جديد 
     public function create()
     {
         return view ('dashboard.passenger.create');
     }
 
 
+        // داله حفظ بيانات البص المدخله بواسطه شاشة إضافه مسافر
+    // يتم حفظ البانات المدخله داخل الداتا بيز في جدول المسافرين
     public function store(Request $request)
     {
         $request->validate([
@@ -44,6 +48,7 @@ class PassengerController extends Controller
 
     // }
 
+    // دالة عرض شاشة تعديل بيانات المسافر المختاره من شاشة عرض كل المسافرين
     public function edit( $id)
     {
         $passenger = Passenger::find($id);
@@ -58,6 +63,8 @@ class PassengerController extends Controller
     }
 
  
+       // دالة حفظ البانات التي تم التعديل عليها من شاشة تعديل البيانات 
+    //وحفظها في جدول المسافرين داخل الداتا بيز
     public function update(Request $request,  $id)
     {
         $passenger = Passenger::find($id);
@@ -78,6 +85,7 @@ class PassengerController extends Controller
     }
 
 
+      // دالة حذف بيانات المسافر المختاره من شاشة عرض كل المسافرين
     public function destroy( $id)
     {
         Passenger::find($id)->delete();
