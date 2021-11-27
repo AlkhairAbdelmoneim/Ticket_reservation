@@ -27,13 +27,10 @@ Auth::routes(['register' => false]);
 Route::group(['middleware' => 'auth'] , function(){
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    
-    Route::resource('passenger', App\Http\Controllers\PassengerController::class)->except(['show']);
-    Route::resource('travels', App\Http\Controllers\TravelsController::class)->except(['show']);
-    Route::resource('bus', App\Http\Controllers\BusController::class)->except(['show']);
-    Route::resource('travelsHagz', App\Http\Controllers\TravelsHagzController::class)->except(['show']);
-    Route::get('dropTickets/{passeng}/{travel}', [App\Http\Controllers\DropTicketsController::class , 'index'])->name('dropTickets');
-    Route::get('change', [App\Http\Controllers\ChangeController::class , 'index'])->name('change');
-    Route::post('update', [App\Http\Controllers\ChangeController::class , 'update'])->name('update');
-    
+
+    Route::resource('petition', App\Http\Controllers\PetitionController::class)->except(['show']);
+    Route::resource('department', App\Http\Controllers\DepartmentController::class)->except(['show']);
+    Route::resource('employee', App\Http\Controllers\EmployeeController::class)->except(['show']);
+    Route::get('printThis/{id}', [App\Http\Controllers\PrintThisController::class ,'printThis'])->name('printThis');
+    Route::post('change', [App\Http\Controllers\ChangeUserController::class ,'change'])->name('change');
 });

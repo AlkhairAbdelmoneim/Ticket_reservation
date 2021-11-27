@@ -1,98 +1,85 @@
-@extends('layouts.dashboard.app')
-
-@section('content')
-    <div class="content-wrapper">
-        <section class='content-header'>
-            <h1>@lang('site.home')</h1>
-            <ol class="breadcrumb">
-                <li><a href="{{-- route('adminbanel') --}}"><i class="fa fa-dashboard"></i>@lang('site.dashboard')</a></li>
-                <li class="active">الرحلات</li>
-            </ol>
-        </section>
-        <section class="content">
-            <!-- Info boxes -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">منطقة حجر الرحلات</h3>
-                            <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i
-                                        class="fa fa-minus"></i></button>
-                                <div class="btn-group">
-                                    <button class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown"><i
-                                            class="fa fa-wrench"></i></button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                    </ul>
-                                </div>
-                                <button class="btn btn-box-tool" data-widget="remove"><i
-                                        class="fa fa-times"></i></button>
-                            </div>
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    @include('partials._errors')
-
-                                    <form action="{{ route('travelsHagz.store') }}" method="POST">
-                                        @csrf
-                                        {{ method_field('post') }}
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>إسم المسافر</label>
-                                                <input type="text" name="name" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>رقم الهاتف</label>
-                                                <input type="text" name="phone" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>عدد المقاعد</label>
-                                                <input type="text" name="chair_count" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="projectinput2">كل الرحلات من و الي</label>
-                                                <select name="travel_from_to" class="form-control" style="height: 40px">
-                                                    @foreach ($travels as $key => $value)
-                                                        <option value="{{ $value->id }}">
-                                                            {{ ' من ' . $value->travel_from . ' الي ' . $value->travel_to . ' السعر ' . $value->price . ' القيام ' . $value->travel_go . ' الوصول ' . $value->travel_arive }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-info" style="width: 100%">حجز الرحله</button>
-                                        </div>
-                                    </form>
-                                </div><!-- /.col -->
-                            </div><!-- /.row -->
-                        </div><!-- ./box-body -->
-                    </div><!-- /.box -->
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-
-        </section><!-- /.content -->
-    </div>
+{{-- كود الشاشه الرئيسيه للنظام مع شاشة تعديل معلومات مدير النظام --}}
+@extends('layouts.master')
+@section('css')
+    <!--  Owl-carousel css-->
+    <link href="{{ URL::asset('assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet" />
+    <!-- Maps css -->
+    <link href="{{ URL::asset('assets/plugins/jqvmap/jqvmap.min.css') }}" rel="stylesheet">
 @endsection
+@section('page-header')
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <div>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">المستخدم,{{ ' ' . auth()->user()->name }}</h2>
+            </div>
+        </div>
+    </div>
+    <!-- /breadcrumb -->
+@endsection
+@section('content')
+    @include('partials._errors')
 
-@push('scripts')
+    <form action="{{ route('change') }}" method="post">
+        @csrf
+        {{ method_field('post') }}
+
+        <span>تعديل البيانات الشخصيه</span>
+        <div class="form-group">
+            <label for="exampleInputPassword1">إيميلك</label>
+            <input type="email" name="email" class="form-control" value="{{ auth()->user()->email }}">
+        </div>
 
 
+        <div class="form-group">
+            <label for="exampleInputPassword1">كلمة المرور القديمه</label>
+            <input type="password" name="old_password" class="form-control">
+        </div>
 
-@endpush
+        <div class="form-group">
+            <label for="">كلمة المرور الجديده</label>
+            <input type="password" name="new_password" class="form-control">
+        </div>
+
+
+        <button type="submit" class="btn btn-primary ">تعديل</button>
+    </form>
+@endsection
+@section('js')
+    <!--Internal  Chart.bundle js -->
+    <script src="{{ URL::asset('assets/plugins/chart.js/Chart.bundle.min.js') }}"></script>
+    <!-- Moment js -->
+    <script src="{{ URL::asset('assets/plugins/raphael/raphael.min.js') }}"></script>
+    <!--Internal  Flot js-->
+    <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/jquery.flot/jquery.flot.categories.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/dashboard.sampledata.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/chart.flot.sampledata.js') }}"></script>
+    <!--Internal Apexchart js-->
+    <script src="{{ URL::asset('assets/js/apexcharts.js') }}"></script>
+    <!-- Internal Map -->
+    <script src="{{ URL::asset('assets/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/modal-popup.js') }}"></script>
+    <!--Internal  index js -->
+    <script src="{{ URL::asset('assets/js/index.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/jquery.vmap.sampledata.js') }}"></script>
+
+    <script>
+        $(document).on('click', '.btn_print1', function() {
+
+            $('.print1').printThis({
+                header: "<h1>فاتورة منصرفات الشركة</h1>",
+            });
+        });
+
+        $(document).on('click', '.btn_print2', function() {
+
+            $('.print2').printThis({
+                header: "<h1>فاتورة منصرفات الكورس</h1>",
+            });
+        });
+    </script>
+@endsection
